@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+  </ol>
+</nav>
+
+@model Wallet.Models.Card
+
+<div class="card">
+    <div class="card-body">
+        <form class="row g-3" action="@Url.Action("Update", "Cards")" method="post">
+            @Html.HiddenFor(Card => Card.Id)
+            @{
+                var bankList = new List<SelectListItem>
+            {
+            new SelectListItem { Text = "BAC", Value = "BAC.png" },
+            new SelectListItem { Text = "BCR", Value = "BCR.png" },
+            new SelectListItem { Text = "BN", Value = "BN.png" },
+            new SelectListItem { Text = "BP", Value = "BP.png" }
+            };
+                var brandList = new List<SelectListItem>
+            {
+            new SelectListItem { Text = "American Express", Value = "American Express.png" },
+            new SelectListItem { Text = "Diners Club", Value = "Diners Club.png" },
+            new SelectListItem { Text = "Mastercard", Value = "Mastercard.png" },
+            new SelectListItem { Text = "Visa", Value = "Visa.png" }
+            };
+            }
+
+            <div class="col-md-3">
+                <label for="Bank" class="form-label">Banco</label>
+                @Html.DropDownListFor(model => model.Bank, bankList)
+            </div>
+            <div class="col-md-3">
+                <label for="Brand" class="form-label">Emisor</label>
+                @Html.DropDownListFor(model => model.Brand, brandList)
+            </div>
+            <div class="col-md-6">
+                <label for="Name" class="form-label">Dueño</label>
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "required" })
+            </div>
+            <div class="col-md-6">
+                <label for="CardNumber" class "form-label">Número de tarjeta</label>
+                @Html.TextBoxFor(model => model.CardNumber, new { @class = "form-control", required = "required", type = "number" })
+            </div>
+            <div class="col-md-3">
+                <label for="CVV" class="form-label">Código de seguridad</label>
+                @Html.TextBoxFor(model => model.CVV, new { @class = "form-control", required = "required", type = "number" })
+            </div>
+            <div class="col-md-3">
+                <label for="ExpirationDate" class="form-label">Fecha de caducidad</label>
+                @Html.TextBoxFor(model => model.ExpirationDate, new { @class = "form-control", required = "required", type = "date" })
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

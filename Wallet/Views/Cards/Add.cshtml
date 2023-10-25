@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear tarjeta</li>
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-body">
+        <form class="row g-3" action="@Url.Action("Save","Cards")" method="post">
+            <div class="col-md-3">
+                <label for="Bank" class="form-label">Banco</label>
+                <select class="form-select" id="Bank" name="Bank" required>
+                    <option selected disabled value="">Seleccionar</option>
+                    <option value="BAC.png">BAC</option>
+                    <option value="BCR.png">BCR</option>
+                    <option value="BN.png">BN</option>
+                    <option value="https://www.aedcr.com/sites/default/files/2022-05/logo_bancopopular.png">BP</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="Brand" class="form-label">Emisor</label>
+                <select class="form-select" id="Brand" name="Brand" required>
+                    <option selected disabled value="">Seleccionar</option>
+                    <option value="American Express.png">American Express</option>
+                    <option value="Diners Club.png">Diners Club</option>
+                    <option value="Mastercard.png">Mastercard</option>
+                    <option value="Visa.png">Visa</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="Name" class="form-label">Dueño</label>
+                <input type="text" class="form-control" id="Name" name="Name" placeholder="Nombre completo presente en la tarjeta" required>
+            </div>
+            <div class="col-md-6">
+                <label for="CardNumber" class="form-label">Número de tarjeta</label>
+                <input type="number" class="form-control" id="CardNumber" name="CardNumber" placeholder="Valor númerico" required>
+            </div>
+            <div class="col-md-3">
+                <label for="CVV" class="form-label">Código de seguridad</label>
+                <input type="number" class="form-control" id="CVV" name="CVV" placeholder="CVV" required>
+            </div>
+            <div class="col-md-3">
+                <label for="ExpirationDate" class="form-label">Fecha de caducidad</label>
+                <input type="date" class="form-control" id="ExpirationDate" name="ExpirationDate" placeholder="dd/mm/yyyy" required>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

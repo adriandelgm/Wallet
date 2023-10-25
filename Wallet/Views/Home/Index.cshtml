@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<body>
+    <br />
+    <h3>Bienvenido</h3>
+    <h5 class="text-muted">a tu billetera electronica</h5>
+    <br />
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h5>Tarjetas</h5>
+            </div>
+            <div class="col">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-circle btn-dark me-md-2" type="button" onclick="window.location= '@Url.Action( "Add", "Cards")'"><b>+</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @foreach (var card in ViewBag.CardList)
+        {
+            string bankClass = "";
+            switch (card.Bank)
+            {
+                case "BAC.png":
+                    bankClass = "card-red";
+                    break;
+                case "BCR.png":
+                    bankClass = "card-blue";
+                    break;
+                case "BN.png":
+                    bankClass = "card-dark-green";
+                    break;
+                case "BP.png":
+                    bankClass = "card-orange";
+                    break;
+                default:
+                    bankClass = "";
+                    break;
+            }
+            string expirationClass = DateTime.Now > card.ExpirationDate ? "card-expired" : "";
+
+            <div class="card @bankClass @expirationClass" data-toggle="state" @if (card.ShowBadge) {<text>has-badge</text>} onmouseover="showOptions(this)" onmouseout="hideOptions(this)">
+                <div class="card-body">
+                    <div class="container">
+                        <!-- Rest of your card content -->
+                        <div class="row">
+                            <div class="col text-light"><small>@card.Id</small></div>
+                            <div class="col"><h6 class="card-title text-light text-center">@card.Name</h6></div>
+                            <div class="col text-end">
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="@Url.Content("~/Images/" + @card.Bank)"/>
+                                    </div>
+                                    <div class="col">
+                                            <img src="@Url.Content("~/Images/" + @card.Brand)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col text-light" id="cardNumberDisplay">@card.CardNumber</div>
+                            <div class="col text-light text-center">@card.CVV</div>
+                            <div class="col text-light text-end" id="expirationDate">@card.ExpirationDate.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <!-- Options to edit, disable, and delete -->
+                        <div class="row card-options">
+                            <div class="col">
+                                <div class="container text-center">
+                                    <div class="row">
+                                        <div class="col">
+                                            <a asp-controller="Cards" asp-action="Edit" asp-route-id="@card.Id" class="btn btn-success btn-sm">Editar</a>
+                                        </div>
+                                        <div class="col">
+                                                <form method="post" action="/Cards/Delete">
+                                                    <button class="DeleteButtom btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                                    <input type="hidden" name="Id" id="Id" value="@card.Id">
+                                                </form>
+
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" class="btn btn-warning btn-sm text-light" id="toggleButton">Deshabilitar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (card.ShowBadge)
+                {
+                        <span class="badge bg-danger text-light">Expires soon</span>
+                }
+            </div>
+        }
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var toggleButton = document.getElementById("toggleButton");
+            var card = document.querySelector(".card");
+
+            toggleButton.addEventListener("click", function () {
+                var currentState = card.getAttribute("data-toggle");
+                if (currentState === "active") {
+                    card.classList.add("card-expired");
+                    card.setAttribute("data-toggle", "disabled");
+                } else {
+                    card.classList.remove("card-expired");
+                    card.setAttribute("data-toggle", "active");
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var cardNumberElement = document.getElementById("cardNumberDisplay");
+            var cardNumber = cardNumberElement.textContent;
+            var lastFourDigits = cardNumber.slice(-4); // Obtiene los últimos cuatro dígitos
+            var maskedDigits = cardNumber.slice(0, -4).replace(/\d/g, "*"); // Oculta los dígitos anteriores
+
+            // Actualiza el contenido del elemento con los dígitos ocultos
+            cardNumberElement.textContent = maskedDigits + lastFourDigits;
+        });
+    </script>
+
+    <script>
+        function showOptions(card) {
+            var options = card.querySelector(".card-options");
+            options.style.display = "block";
+        }
+
+        function hideOptions(card) {
+            var options = card.querySelector(".card-options");
+            options.style.display = "none";
+        }
+
+        function editCard(cardId) {
+            // Handle edit card functionality
+        }
+
+        function disableCard(cardId) {
+            // Handle disable card functionality
+        }
+
+        function deleteCard(cardId) {
+            // Handle delete card functionality
+        }
+    </script>
+
+</body>

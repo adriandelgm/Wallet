@@ -1,0 +1,97 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.card-red {
+    background-color: IndianRed;
+}
+
+.card-blue {
+    background-color: SteelBlue;
+}
+
+.card-dark-green {
+    background-color: MediumSeaGreen;
+}
+
+.card-orange {
+    background-color: Coral;
+}
+
+.card-expired {
+    background-color: gray;
+}
+/* Set the default width and height for all images */
+img {
+    width: 80px;
+    height: 40px;
+}
+
+    /* Customize width and height for specific bank images */
+    img.bank-image[src*="BAC.png"],
+    img.bank-image[src*="BCR.png"] {
+        width: 80px;
+        height: 40px;
+    }
+
+    img.bank-image[src*="BN.png"],
+    img.bank-image[src*="BP.png"] {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Customize width and height for specific brand images */
+    img.brand-image[src*="American Express.png"] {
+        width: 80px;
+        height: 80px;
+    }
+
+    img.brand-image[src*="Diners Club.png"],
+    img.brand-image[src*="Visa.png"],
+    img.brand-image[src*="Mastercard.png"] {
+        width: 80px;
+        height: 40px;
+    }
+
